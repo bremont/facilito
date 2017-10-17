@@ -47,4 +47,22 @@ class PaisesController extends Controller {
         $this->redirect(array('index'));
     }
 
+    public function actionVer($id) {
+        $objPais = Paises::model()->findByPk($id);
+        $this->render("ver", array("pais" => $objPais));
+    }
+
+    public function actionActivar($id) {
+        $objPais = Paises::model()->findByPk($id);
+
+        if ($objPais->estatus == 1) {
+            $objPais->estatus = 0;
+        } else {
+            $objPais->estatus = 1;
+        }
+        
+        $objPais->save();
+        $this->redirect(array('index'));
+    }
+
 }
